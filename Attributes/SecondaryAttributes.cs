@@ -14,9 +14,12 @@ namespace RPGgame
 
         public SecondaryAttributes(PrimaryAttributes pa)
         {
-            this.health = (pa.vitality * 10);
-            this.armorRating = (pa.strength + pa.dexterity);
-            this.elementalResistance = pa.intelligence;
+            if (pa != null)
+            {
+                this.health = (pa.Vitality * 10);
+                this.armorRating = (pa.Strength + pa.Dexterity);
+                this.elementalResistance = pa.Intelligence;
+            }
         }
         public SecondaryAttributes(int vit, int str, int dex, int intelligence)
         {

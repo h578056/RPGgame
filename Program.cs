@@ -8,12 +8,12 @@ namespace RPGgame
         static void Main(string[] args)
         {
             
-            Mage mage = new Mage("mage1", baseAttributes);
-            Console.WriteLine("level beforhand: " + mage.level + "--"+ mage.baseAttributes.ToString() + " secAttr: " + mage.secondaryAttributes);
+            Mage mage = new Mage("mage1");
+            Console.WriteLine("level beforhand: " + mage.Level + "--" + mage.BaseAttributes.ToString() + " secAttr: "+ mage.SecondaryAttributes);
             
-            Console.WriteLine(mage.baseAttributes.strength);
+            //Console.WriteLine(mage.BaseAttributes.Strength);
             mage.IncreaseLevel();
-           Console.WriteLine("level after: " + mage.level + "--" + mage.baseAttributes.ToString()+ " secAttr: " + mage.secondaryAttributes);
+            Console.WriteLine("level after: " + mage.Level + "--" + mage.BaseAttributes.ToString() + " secAttr: " + mage.SecondaryAttributes);
         }
     }
 }

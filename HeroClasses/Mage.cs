@@ -8,18 +8,16 @@ namespace RPGgame
 {
     public class Mage : Hero
     {
-        //public PrimaryAttributes baseAttributes { get; set; }
-        public Mage(string name, PrimaryAttributes baseAttributes) : base(name, baseAttributes)
+        public Mage(string name) : base(name)
         {
-            //baseAttributes = new PrimaryAttributes(1, 1, 8, 5);
-            //this.baseAttributes.s
-
+            this.BaseAttributes= new PrimaryAttributes(5, 1, 1, 8);
+            this.SecondaryAttributes = new SecondaryAttributes(BaseAttributes);
         }
         public override void IncreaseLevel()
         {
-            this.level = this.level + 1;
-            this.baseAttributes = new PrimaryAttributes(baseAttributes.strength + 1, baseAttributes.dexterity + 1, baseAttributes.intelligence + 5, baseAttributes.vitality +3) ;
-            this.IncreaseSecAttr(baseAttributes);
+            this.Level = this.Level + 1;
+            this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality +3, BaseAttributes.Strength + 1, BaseAttributes.Dexterity + 1, BaseAttributes.Intelligence + 5) ;
+            this.IncreaseSecAttr(BaseAttributes);
         }
     }
 }

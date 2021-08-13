@@ -8,24 +8,24 @@ namespace RPGgame
 {
    public class PrimaryAttributes
     {
-        public int strength { get; set; }
-        public int dexterity { get; set; }
-        public int intelligence { get; set; }
-        public int vitality { get; set; }
+        public int Strength { get; set; }
+        public int Dexterity { get; set; }
+        public int Intelligence { get; set; }
+        public int Vitality { get; set; }
 
         public PrimaryAttributes()
         {
         }
-        public PrimaryAttributes(int str, int dex, int intelli, int vit)
+        public PrimaryAttributes(int vit, int str, int dex, int intelli)
         {
-            this.strength = str;
-            this.dexterity = dex;
-            this.intelligence = intelli;
-            this.vitality = vit;
+            this.Strength = str;
+            this.Dexterity = dex;
+            this.Intelligence = intelli;
+            this.Vitality = vit;
         }
         public override string ToString()
         {
-            string atrTxt = "STR: " + this.strength + " DEX: " + this.dexterity + " INT: " + this.intelligence + " VIT: " + this.vitality; 
+            string atrTxt = "STR: " + this.Strength + " DEX: " + this.Dexterity + " INT: " + this.Intelligence + " VIT: " + this.Vitality; 
 
             return atrTxt; 
         }
