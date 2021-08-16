@@ -10,13 +10,20 @@ namespace RPGgame
     {
         public string Name { get; set; }
         public int RequiredLevel { get; set; }
-        public string Slot { get; set; }
-
-        public Item(string name, int reqLevel, string slot)
+        public SlotE Slot { get; set; }
+        public Item() { }
+        public Item(string name, int reqLevel, SlotE slot)
         {
             this.Name = name;
             this.RequiredLevel = reqLevel;
             this.Slot = slot;
+        }
+        public enum SlotE
+        {
+            Head,
+            Body,
+            Legs,
+            Weapon
         }
     }
 }

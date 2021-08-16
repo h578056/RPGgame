@@ -8,9 +8,10 @@ namespace RPGgame.Items
 {
     public class Armor : Item
     {
-        public PrimaryAttributes PrimaryAttr { get; set; }
+        public PrimaryAttributes PrimaryAttr { get; set; }//armorationg?
         public ArmorType ArmorT { get; set; }
-        public Armor(PrimaryAttributes pa, ArmorType at, string name, int reqLevel, string slot) : base(name, reqLevel, slot)
+        public Armor() { }
+        public Armor(PrimaryAttributes pa, ArmorType at, string name, int reqLevel, SlotE slot) : base(name, reqLevel, slot)
         {
             this.PrimaryAttr = pa;
             this.ArmorT = at;

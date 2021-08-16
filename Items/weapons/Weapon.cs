@@ -12,8 +12,8 @@ namespace RPGgame.Weapons
         public double AttacksPerSecond { get; set; }
         public WeaponType WeaponT { get; set; }
         public double DPS { get; }
-
-        public Weapon(int baseDamage,double attacksPerSecond, WeaponType weaponType,string name,int reqLevel, string slot) : base(name, reqLevel, slot)
+        public Weapon() { }
+        public Weapon(int baseDamage, double attacksPerSecond, WeaponType weaponType,string name,int reqLevel, SlotE slot) : base(name, reqLevel, slot)
         {
             this.BaseDamage = baseDamage;
             this.AttacksPerSecond = attacksPerSecond;
