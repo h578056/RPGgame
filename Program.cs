@@ -18,8 +18,16 @@ namespace RPGgame
             Console.WriteLine("Totalattributes: " + mage.TotalAttributes.ToString());
             Console.WriteLine("Hero DPS: " + mage.DPS);
             //create weapon the equip
-            Weapon weapon = new Weapon(1, 1.1, Weapon.WeaponType.Staff, "COOL-STAFF", 1, Item.SlotE.Weapon);
-            mage.EquipWeapon(weapon);
+            Weapon weapon = new Weapon(1, 1.1, Weapon.WeaponType.Staff, "COOL-STAFF", 2, Item.SlotE.Weapon);
+            try
+            {
+                mage.EquipWeapon(weapon);
+            }
+            catch(InvalidWeaponException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
             Console.WriteLine("Weapon name: " + mage.Equipment[Item.SlotE.Weapon].Name );
             Console.WriteLine("Totalattributes: " + mage.TotalAttributes.ToString());
             Console.WriteLine("Hero DPS: " + mage.DPS);

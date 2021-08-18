@@ -24,27 +24,32 @@ namespace RPGgame.HeroClasses
 
         public override void IncreaseLevel(int optionalint = 1)
         {
-            this.Level = this.Level + 1;
-            this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 2 * optionalint, BaseAttributes.Strength + 1 * optionalint, BaseAttributes.Dexterity + 5 * optionalint, BaseAttributes.Intelligence + 1 * optionalint);
-            this.IncreaseSecAttr(BaseAttributes);
-            CalculateTotalAttributes(BaseAttributes, Equipment);
+            if (optionalint > 0)
+            {
+                this.Level = this.Level + 1;
+                this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 2 * optionalint, BaseAttributes.Strength + 1 * optionalint, BaseAttributes.Dexterity + 5 * optionalint, BaseAttributes.Intelligence + 1 * optionalint);
+                this.IncreaseSecAttr(BaseAttributes);
+                CalculateTotalAttributes(BaseAttributes, Equipment);
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
         }
-        public override void EquipWeapon(Weapon weapon) //remeamber to make custom throw
+        public override string EquipWeapon(Weapon weapon)
         {
-            EquipWeapon2(weapon, AllowedItemsForHero);
-            CalculateHeroDPS(weapon, TotalAttributes);
+            return EquipWeapon2(weapon, AllowedItemsForHero);
         }
 
-        public override void EquipArmor(Armor armor)
+        public override string EquipArmor(Armor armor)
         {
-            EquipArmor2(armor, AllowedItemsForHero);
+            return EquipArmor2(armor, AllowedItemsForHero);
         }
         public override void CalculateHeroDPS(Weapon weapon, PrimaryAttributes totalAttrbutes)
         {
-            if (weapon != null && weapon.DPS != 0 && totalAttrbutes != null)
+            if (totalAttrbutes != null)
             {
-                double h = (double)(1) + ((double)(totalAttrbutes.Dexterity) / (double)(100));
-                this.DPS = Math.Round(weapon.DPS * h, 3);
+                CalculateHeroDPSForHero(weapon, totalAttrbutes.Dexterity);
             }
         }
     }

@@ -35,7 +35,7 @@ public abstract class Hero
     {
 		this.SecondaryAttributes = new SecondaryAttributes(pa);
     }
-	public void EquipWeapon2(Weapon weapon, List<Enum> allowedItemsForHero)// checks if level ok and correct type of item
+	public string EquipWeapon2(Weapon weapon, List<Enum> allowedItemsForHero)// checks if level ok and correct type of item
 	{
 		bool isAllowed = false;
 		foreach (AllowedItems e in allowedItemsForHero)
@@ -49,13 +49,14 @@ public abstract class Hero
 		{
 			this.Equipment[weapon.Slot] = weapon;
 			CalculateHeroDPS(weapon, TotalAttributes);
+			return "New weapon equipped!";
 		}
 		else
 		{
 			throw new InvalidWeaponException();
 		}
 	}
-	public void EquipArmor2(Armor armor, List<Enum> allowedItemsForHero) // checks if level ok and correct type of item
+	public string EquipArmor2(Armor armor, List<Enum> allowedItemsForHero) // checks if level ok and correct type of item
     {
 		bool isAllowed = false;
 		foreach (AllowedItems e in allowedItemsForHero)
@@ -71,6 +72,7 @@ public abstract class Hero
 
 			CalculateTotalAttributes(BaseAttributes, Equipment);
 			CalculateHeroDPS((Weapon)Equipment[SlotE.Weapon], TotalAttributes);
+			return "New armour equipped!";
 		}
 		else
 		{
@@ -109,6 +111,16 @@ public abstract class Hero
 
 
 	}
+	
+	public void CalculateHeroDPSForHero(Weapon weapon, int AttrbuteForDPS)
+	{
+		if (weapon != null && weapon.DPS != 0 && AttrbuteForDPS != null)
+		{
+			double h = (double)(1) + ((double)(AttrbuteForDPS) / (double)(100));
+			this.DPS = Math.Round(weapon.DPS * h, 3);
+		}
+	}
+	
 	public void PrintHeroStats()
     {
 		StringBuilder sb = new StringBuilder();
@@ -122,9 +134,9 @@ public abstract class Hero
 		sb.AppendLine("Elemental Resistance: " + SecondaryAttributes.ArmorRating);
 		Console.WriteLine(sb);
 	}
-	public abstract void EquipWeapon(Weapon weapon); //call method EquipWeapon2
+	public abstract string EquipWeapon(Weapon weapon); //call method EquipWeapon2
 
-	public abstract void EquipArmor(Armor armor);//call method EquipArmor2
+	public abstract string EquipArmor(Armor armor);//call method EquipArmor2
 
 	public abstract void IncreaseLevel(int optionalint = 1); //meathod to increase each heroes level and attributes
 	public abstract void CalculateHeroDPS(Weapon weapon, PrimaryAttributes totalAttrbutes);

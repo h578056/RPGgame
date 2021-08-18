@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RPGgame.Items
 {
     [Serializable]
-    class InvalidArmorException : Exception
+    public class InvalidArmorException : Exception
     {
         public InvalidArmorException()
             : base("Invalid Armor Equip, to high level item or incorrect item type")

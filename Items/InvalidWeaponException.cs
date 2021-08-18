@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace RPGgame.Items
 {
     [Serializable]
-    class InvalidWeaponException : Exception
+    public class InvalidWeaponException : Exception
     {
         public InvalidWeaponException()
-            : base("Invalid Armor Equip, to high level item or incorrect item type")
+            : base("Invalid Weapon Equip, to high level item or incorrect item type")
         {
            
         }

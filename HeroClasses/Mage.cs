@@ -34,7 +34,6 @@ namespace RPGgame
                 this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 3*optionalint, BaseAttributes.Strength + 1 * optionalint, BaseAttributes.Dexterity + 1 * optionalint, BaseAttributes.Intelligence + 5 * optionalint);
                 this.IncreaseSecAttr(BaseAttributes);
                 CalculateTotalAttributes(BaseAttributes, Equipment);
-                //Weapon w=(Weapon)Equipment[SlotE.Weapon];
                 CalculateHeroDPS((Weapon)Equipment[SlotE.Weapon], TotalAttributes);
             }
             else
@@ -43,23 +42,29 @@ namespace RPGgame
             }
         }  
 
-        public override void EquipWeapon(Weapon weapon)
+        public override string EquipWeapon(Weapon weapon)
         {
-            EquipWeapon2(weapon, AllowedItemsForHero);
+            return EquipWeapon2(weapon, AllowedItemsForHero);
         }
 
-        public override void EquipArmor(Armor armor)
+        public override string EquipArmor(Armor armor)
         {
-            EquipArmor2(armor, AllowedItemsForHero);
+            return EquipArmor2(armor, AllowedItemsForHero);
         }
 
         public override void CalculateHeroDPS(Weapon weapon, PrimaryAttributes totalAttrbutes)
         {
+            if (totalAttrbutes != null)
+            {
+                CalculateHeroDPSForHero(weapon, totalAttrbutes.Intelligence);
+            }
+            /*
             if (weapon != null && weapon.DPS != 0 && totalAttrbutes != null)
             {
                 double h =(double)(1) + ((double)(totalAttrbutes.Intelligence) / (double)(100));
                 this.DPS = Math.Round(weapon.DPS * h, 3);
             }
+            */
         }
     }
 }
