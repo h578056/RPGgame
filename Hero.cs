@@ -31,7 +31,7 @@ public abstract class Hero
 		Equipment.Add(Weapon.SlotE.Weapon, new Weapon());
 		//DPS= 
 	}
-	public void IncreaseSecAttr(PrimaryAttributes pa)// method to incresae secondary attribute
+	public void IncreaseSecAttr(PrimaryAttributes pa)// method to increase secondary attribute
     {
 		this.SecondaryAttributes = new SecondaryAttributes(pa);
     }
@@ -114,14 +114,14 @@ public abstract class Hero
 	
 	public void CalculateHeroDPSForHero(Weapon weapon, int AttrbuteForDPS)
 	{
-		if (weapon != null && weapon.DPS != 0 && AttrbuteForDPS != null)
+		if (weapon != null && weapon.DPS != 0)//checks that neither weapon not weapon dps value is zero
 		{
-			double h = (double)(1) + ((double)(AttrbuteForDPS) / (double)(100));
-			this.DPS = Math.Round(weapon.DPS * h, 3);
+			double h = (double)(1) + ((double)(AttrbuteForDPS) / (double)(100));//damage from stats
+			this.DPS = Math.Round(weapon.DPS * h, 3);//weapon dps * with stat damage=total DPS
 		}
 	}
 	
-	public void PrintHeroStats()
+	public void PrintHeroStats() // prints stat overview for hero
     {
 		StringBuilder sb = new StringBuilder();
 		sb.AppendLine("Name: " + this.Name);
@@ -138,8 +138,8 @@ public abstract class Hero
 
 	public abstract string EquipArmor(Armor armor);//call method EquipArmor2
 
-	public abstract void IncreaseLevel(int optionalint = 1); //meathod to increase each heroes level and attributes
-	public abstract void CalculateHeroDPS(Weapon weapon, PrimaryAttributes totalAttrbutes);
+	public abstract void IncreaseLevel(int optionalint = 1); //method to increase each heroes level and primary attributes
+	public abstract void CalculateHeroDPS(Weapon weapon, PrimaryAttributes totalAttrbutes); //calls CalculateHeroDPSForHero after checking if atribute for hero dps is ok
 	
 
 }
