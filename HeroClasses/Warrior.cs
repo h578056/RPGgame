@@ -20,21 +20,32 @@ namespace RPGgame.HeroClasses
             AllowedItemsForHero.Add(AllowedItems.Axe);
             AllowedItemsForHero.Add(AllowedItems.Hammer);
             AllowedItemsForHero.Add(AllowedItems.Sword);
+            TotalAttributes = new PrimaryAttributes(BaseAttributes.Vitality, BaseAttributes.Strength, BaseAttributes.Dexterity, BaseAttributes.Intelligence);
         }
-        public override void IncreaseLevel()
+        public override void IncreaseLevel(int optionalint = 1)
         {
             this.Level = this.Level + 1;
-            this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 5, BaseAttributes.Strength + 3, BaseAttributes.Dexterity + 2, BaseAttributes.Intelligence + 1);
+            this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 5* optionalint, BaseAttributes.Strength + 3 * optionalint, BaseAttributes.Dexterity + 2 * optionalint, BaseAttributes.Intelligence + 1 * optionalint);
             this.IncreaseSecAttr(BaseAttributes);
+            CalculateTotalAttributes(BaseAttributes, Equipment);
         }
         public override void EquipWeapon(Weapon weapon) //remeamber to make custom throw
         {
             EquipWeapon2(weapon, AllowedItemsForHero);
+            CalculateHeroDPS(weapon, TotalAttributes);
         }
 
         public override void EquipArmor(Armor armor)
         {
             EquipArmor2(armor, AllowedItemsForHero);
+        }
+        public override void CalculateHeroDPS(Weapon weapon, PrimaryAttributes totalAttrbutes)
+        {
+            if (weapon != null && weapon.DPS != 0 && totalAttrbutes != null)
+            {
+                double h = (double)(1) + ((double)(totalAttrbutes.Strength) / (double)(100));
+                this.DPS = Math.Round(weapon.DPS * h, 3);
+            }
         }
     }
 }

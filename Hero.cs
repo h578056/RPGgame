@@ -4,6 +4,9 @@ using RPGgame.Items;
 using RPGgame.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using static RPGgame.Item;
 
 public abstract class Hero
 {
@@ -13,7 +16,8 @@ public abstract class Hero
 	public SecondaryAttributes SecondaryAttributes { get; set; }
 	public Dictionary<Weapon.SlotE, Item> Equipment { get; set; }
 	//equipment enumerator?//map that allows key to be item type the value that is the item object? created default empty
-	//private double totalAttributes { get; set; }
+	public PrimaryAttributes TotalAttributes { get; set; }
+	public double DPS { get; set; } = 1;
 	public Hero (string name)
 	{
 		this.Name = name;
@@ -25,6 +29,7 @@ public abstract class Hero
 		Equipment.Add(Weapon.SlotE.Body, new Armor());
 		Equipment.Add(Weapon.SlotE.Legs, new Armor());
 		Equipment.Add(Weapon.SlotE.Weapon, new Weapon());
+		//DPS= 
 	}
 	public void IncreaseSecAttr(PrimaryAttributes pa)// method to incresae secondary attribute
     {
@@ -43,7 +48,7 @@ public abstract class Hero
 		if (isAllowed == true)
 		{
 			this.Equipment[weapon.Slot] = weapon;
-
+			CalculateHeroDPS(weapon, TotalAttributes);
 		}
 		else
 		{
@@ -64,17 +69,65 @@ public abstract class Hero
 		{
 			this.Equipment[armor.Slot] = armor;
 
+			CalculateTotalAttributes(BaseAttributes, Equipment);
+			CalculateHeroDPS((Weapon)Equipment[SlotE.Weapon], TotalAttributes);
 		}
 		else
 		{
 			throw new InvalidWeaponException();
 		}
 	}
+	public void CalculateTotalAttributes(PrimaryAttributes pa, Dictionary<Weapon.SlotE, Item> inventory)
+    {
+		List<SlotE> slotKeys = new List<SlotE>();
+		slotKeys.Add(SlotE.Head);
+		slotKeys.Add(SlotE.Body);
+		slotKeys.Add(SlotE.Legs);
+		List<Item> ar = slotKeys.Select(x => Equipment[x]).ToList(); //Gets all items of type Armor
+		TotalAttributes = new PrimaryAttributes();// makes TotalAttribute values=0;
+		foreach (Armor a in ar)
+		{
+			
+			if (a.PrimaryAttr != null) 
+			{
+				//adds item attributes to total attributes
+				TotalAttributes.Strength += a.PrimaryAttr.Strength;
+				TotalAttributes.Vitality +=  a.PrimaryAttr.Vitality;
+				TotalAttributes.Dexterity += a.PrimaryAttr.Dexterity;
+				TotalAttributes.Intelligence += a.PrimaryAttr.Intelligence;
+			}
+
+		}
+		if (pa != null)
+		{
+			//adds hero attributes to total attributes
+			TotalAttributes.Strength += pa.Strength;
+			TotalAttributes.Vitality += pa.Vitality;
+			TotalAttributes.Dexterity += pa.Dexterity;
+			TotalAttributes.Intelligence += pa.Intelligence;
+		}
+
+
+	}
+	public void PrintHeroStats()
+    {
+		StringBuilder sb = new StringBuilder();
+		sb.AppendLine("Name: " + this.Name);
+		sb.AppendLine("Level: " + this.Level);
+		sb.AppendLine("Strenght " + TotalAttributes.Strength);
+		sb.AppendLine("Dexterity: " + TotalAttributes.Dexterity);
+		sb.AppendLine("Intelligence: " + TotalAttributes.Intelligence);
+		sb.AppendLine("Health: " + SecondaryAttributes.Health);
+		sb.AppendLine("Armor Rating: " + SecondaryAttributes.ArmorRating);
+		sb.AppendLine("Elemental Resistance: " + SecondaryAttributes.ArmorRating);
+		Console.WriteLine(sb);
+	}
 	public abstract void EquipWeapon(Weapon weapon); //call method EquipWeapon2
 
 	public abstract void EquipArmor(Armor armor);//call method EquipArmor2
 
-	public abstract void IncreaseLevel(); //meathod to increase each heroes level and attributes
+	public abstract void IncreaseLevel(int optionalint = 1); //meathod to increase each heroes level and attributes
+	public abstract void CalculateHeroDPS(Weapon weapon, PrimaryAttributes totalAttrbutes);
 	
 
 }

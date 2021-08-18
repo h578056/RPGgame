@@ -23,14 +23,25 @@ namespace RPGgame
             AllowedItemsForHero.Add(AllowedItems.Cloth);
             AllowedItemsForHero.Add(AllowedItems.Staff);
             AllowedItemsForHero.Add(AllowedItems.Wand);
+            TotalAttributes = new PrimaryAttributes(BaseAttributes.Vitality, BaseAttributes.Strength, BaseAttributes.Dexterity, BaseAttributes.Intelligence);
         }
 
-        public override void IncreaseLevel()
+        public override void IncreaseLevel(int optionalint = 1)
         {
-            this.Level = this.Level + 1;
-            this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality +3, BaseAttributes.Strength + 1, BaseAttributes.Dexterity + 1, BaseAttributes.Intelligence + 5) ;
-            this.IncreaseSecAttr(BaseAttributes);
-        }
+            if (optionalint > 0 )
+            {
+                this.Level = this.Level + optionalint;
+                this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 3*optionalint, BaseAttributes.Strength + 1 * optionalint, BaseAttributes.Dexterity + 1 * optionalint, BaseAttributes.Intelligence + 5 * optionalint);
+                this.IncreaseSecAttr(BaseAttributes);
+                CalculateTotalAttributes(BaseAttributes, Equipment);
+                //Weapon w=(Weapon)Equipment[SlotE.Weapon];
+                CalculateHeroDPS((Weapon)Equipment[SlotE.Weapon], TotalAttributes);
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }  
 
         public override void EquipWeapon(Weapon weapon)
         {
@@ -40,6 +51,15 @@ namespace RPGgame
         public override void EquipArmor(Armor armor)
         {
             EquipArmor2(armor, AllowedItemsForHero);
+        }
+
+        public override void CalculateHeroDPS(Weapon weapon, PrimaryAttributes totalAttrbutes)
+        {
+            if (weapon != null && weapon.DPS != 0 && totalAttrbutes != null)
+            {
+                double h =(double)(1) + ((double)(totalAttrbutes.Intelligence) / (double)(100));
+                this.DPS = Math.Round(weapon.DPS * h, 3);
+            }
         }
     }
 }
