@@ -58,13 +58,6 @@ namespace RPGgame
             {
                 CalculateHeroDPSForHero(weapon, totalAttrbutes.Intelligence);
             }
-            /*
-            if (weapon != null && weapon.DPS != 0 && totalAttrbutes != null)
-            {
-                double h =(double)(1) + ((double)(totalAttrbutes.Intelligence) / (double)(100));
-                this.DPS = Math.Round(weapon.DPS * h, 3);
-            }
-            */
         }
     }
 }

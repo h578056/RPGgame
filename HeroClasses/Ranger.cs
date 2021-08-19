@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static RPGgame.Item;
 
 namespace RPGgame.HeroClasses
 {
@@ -15,6 +16,7 @@ namespace RPGgame.HeroClasses
         public Ranger(string name) : base(name)
         {
             this.BaseAttributes = new PrimaryAttributes(8, 1, 7, 1);
+            this.SecondaryAttributes = new SecondaryAttributes(BaseAttributes);
             AllowedItemsForHero = new List<Enum>();
             AllowedItemsForHero.Add(AllowedItems.Leather);
             AllowedItemsForHero.Add(AllowedItems.Mail);
@@ -30,6 +32,7 @@ namespace RPGgame.HeroClasses
                 this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 2 * optionalint, BaseAttributes.Strength + 1 * optionalint, BaseAttributes.Dexterity + 5 * optionalint, BaseAttributes.Intelligence + 1 * optionalint);
                 this.IncreaseSecAttr(BaseAttributes);
                 CalculateTotalAttributes(BaseAttributes, Equipment);
+                CalculateHeroDPS((Weapon)Equipment[SlotE.Weapon], TotalAttributes);
             }
             else
             {

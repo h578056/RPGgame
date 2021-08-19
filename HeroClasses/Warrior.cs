@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static RPGgame.Item;
 
 namespace RPGgame.HeroClasses
 {
@@ -14,6 +15,7 @@ namespace RPGgame.HeroClasses
         public Warrior(string name) : base(name)
         {
             this.BaseAttributes = new PrimaryAttributes(10, 5, 2, 1);
+            this.SecondaryAttributes = new SecondaryAttributes(BaseAttributes);
             AllowedItemsForHero = new List<Enum>();
             AllowedItemsForHero.Add(AllowedItems.Mail);
             AllowedItemsForHero.Add(AllowedItems.Plate);
@@ -30,6 +32,7 @@ namespace RPGgame.HeroClasses
                 this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 5* optionalint, BaseAttributes.Strength + 3 * optionalint, BaseAttributes.Dexterity + 2 * optionalint, BaseAttributes.Intelligence + 1 * optionalint);
                 this.IncreaseSecAttr(BaseAttributes);
                 CalculateTotalAttributes(BaseAttributes, Equipment);
+                CalculateHeroDPS((Weapon)Equipment[SlotE.Weapon], TotalAttributes);
             }
             else
             {

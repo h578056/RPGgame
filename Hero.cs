@@ -132,7 +132,7 @@ public abstract class Hero
 		sb.AppendLine("Intelligence: " + TotalAttributes.Intelligence);
 		sb.AppendLine("Health: " + SecondaryAttributes.Health);
 		sb.AppendLine("Armor Rating: " + SecondaryAttributes.ArmorRating);
-		sb.AppendLine("Elemental Resistance: " + SecondaryAttributes.ArmorRating);
+		sb.AppendLine("Elemental Resistance: " + SecondaryAttributes.ElementalResistance);
 		sb.AppendLine("Damage Per Second(DPS): " + this.DPS);
 		Console.WriteLine(sb);
 	}
