@@ -29,7 +29,7 @@ namespace RPGgame.HeroClasses
             if (optionalint > 0)
             {
                 this.Level = this.Level + optionalint;
-                this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 3, BaseAttributes.Strength + 1, BaseAttributes.Dexterity + 4, BaseAttributes.Intelligence + 1);
+                this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 3 * optionalint, BaseAttributes.Strength + 1 * optionalint, BaseAttributes.Dexterity + 4 * optionalint, BaseAttributes.Intelligence + 1 * optionalint);
                 this.IncreaseSecAttr(BaseAttributes);
                 CalculateTotalAttributes(BaseAttributes, Equipment);
                 CalculateHeroDPS((Weapon)Equipment[SlotE.Weapon], TotalAttributes);
