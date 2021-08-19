@@ -15,73 +15,13 @@ namespace RPGgame
         public Hero hero = null;
         static void Main(string[] args)
         {
-            /*
-            Hero mage = new Mage("mage1");
-            // Console.WriteLine("level beforhand: " + mage.Level + "--" + mage.BaseAttributes.ToString() + " secAttr: "+ mage.SecondaryAttributes);
-
-            //TotalAttributes affterEquip
-            Console.WriteLine("Totalattributes: " + mage.TotalAttributes.ToString());
-            Console.WriteLine("Hero DPS: " + mage.DPS);
-            //create weapon the equip
-            Weapon weapon = new Weapon(1, 1.1, Weapon.WeaponType.Staff, "COOL-STAFF", 2, Item.SlotE.Weapon);
-            try
-            {
-                mage.EquipWeapon(weapon);
-            }
-            catch(InvalidWeaponException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            
-            Console.WriteLine("Weapon name: " + mage.Equipment[Item.SlotE.Weapon].Name );
-            Console.WriteLine("Totalattributes: " + mage.TotalAttributes.ToString());
-            Console.WriteLine("Hero DPS: " + mage.DPS);
-
-            //new weapon new equip after levelup
-            // Weapon weapon2 = new Weapon(1, 1.1, Weapon.WeaponType.Staff, "COOL-STAFF2", 2, Item.SlotE.Weapon);
-            mage.IncreaseLevel(2);//optionalint: 2);
-            //mage.EquipWeapon(weapon2);
-            //Console.WriteLine("Weapon name: " + mage.Equipment[Item.SlotE.Weapon].Name);
-
-            //new head armor and and equip
-            Armor armorHead = new Armor(baseAttributes, Armor.ArmorType.Cloth, "COOL-HAT", 1, Item.SlotE.Head);
-            mage.EquipArmor(armorHead);
-            Console.WriteLine("Head armor name: " + mage.Equipment[Item.SlotE.Head].Name + " Armor stats: " + mage.Equipment[Item.SlotE.Head]);
-            Console.WriteLine("level after: " + mage.Level + "--" + mage.BaseAttributes.ToString() + " secAttr: " + mage.SecondaryAttributes);
-
-            //TotalAttributes affterEquip
-            Console.WriteLine("Totalattributes: "+ mage.TotalAttributes.ToString());
-            Console.WriteLine("Hero DPS: " + mage.DPS);
-            //create bodyarmor and equip
-            Armor armorBody = new Armor(baseAttributes, Armor.ArmorType.Cloth, "COOL-CHESTPIECE", 1, Item.SlotE.Body);
-            mage.EquipArmor(armorBody);
-            //Hero stats
-            Console.WriteLine();
-            mage.PrintHeroStats();
-            */
             Program p = new Program();
             p.RunGameInTerminal();
         }
         public void RunGameInTerminal()
         {
-            Console.WriteLine("Create character: ");
-            Console.WriteLine("Type <mage> for mage");
-            Console.WriteLine("Type <warrior> for warrior");
-            Console.WriteLine("Type <rogue> for rogue");
-            Console.WriteLine("Type <ranger> for ranger");
-            string heroType = Console.ReadLine().ToLower();
-            string name = CreateHeroName();
-            selectHeroType(heroType, name);
-            //hero.PrintHeroStats();
-            //hero.IncreaseLevel();
-            //hero.PrintHeroStats();
-            //hero.IncreaseLevel();
-            //hero.PrintHeroStats();
+            SelectHeroType();
             ActionToDo();
-            //equip or level
-            //if equip, then armor or weapon
-            //then repeat
-            //EquipWeapon(hero);
         }
         public void ActionToDo()
         {
@@ -99,9 +39,9 @@ namespace RPGgame
                     {
                         EquipWeapon(hero);
                     }
-                    catch
+                    catch(InvalidWeaponException e)
                     {
-
+                        Console.WriteLine(e.Message);
                     }
                     ActionToDo();
                     break;
@@ -111,9 +51,9 @@ namespace RPGgame
                     {
                         EquipArmor(hero);
                     }
-                    catch
+                    catch(InvalidArmorException e)
                     {
-
+                        Console.WriteLine(e.Message);
                     }
                     ActionToDo();
                     break;
@@ -135,7 +75,6 @@ namespace RPGgame
         }
         public void EquipArmor(Hero hero)
         {
-
             int lvl = hero.Level;
             Random random = new Random();
             int number = random.Next(0, itemsA.Count - 1);
@@ -195,8 +134,15 @@ namespace RPGgame
                 }
             }
         }
-        public void selectHeroType(string heroType, string name)
+        public void SelectHeroType()
         {
+            Console.WriteLine("Create character: ");
+            Console.WriteLine("Type <mage> for mage");
+            Console.WriteLine("Type <warrior> for warrior");
+            Console.WriteLine("Type <rogue> for rogue");
+            Console.WriteLine("Type <ranger> for ranger");
+            string heroType = Console.ReadLine().ToLower();
+            string name = CreateHeroName();
             switch (heroType)
             {
                 case "mage": // statement sequence
