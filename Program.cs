@@ -23,13 +23,13 @@ namespace RPGgame
             SelectHeroType();
             ActionToDo();
         }
-        public void ActionToDo()
+        public void ActionToDo() //repeats if level or equip either armor or weapon
         {
             hero.PrintHeroStats();
             Console.WriteLine("Type <L> for level up");
             Console.WriteLine("Type <W> to equip weapon");
             Console.WriteLine("Type <A> to equip armor");
-            Console.WriteLine("Type <END> to equip armor");
+            Console.WriteLine("Type <END> to end game");
             string action = Console.ReadLine();
             switch (action)
             {
@@ -59,7 +59,8 @@ namespace RPGgame
                     break;
 
                 case "L": // statement sequence
-                    hero.IncreaseLevel();
+                    //hero.IncreaseLevel();
+                    LevelUp(hero);
                     ActionToDo();
                     break;
 
@@ -73,7 +74,7 @@ namespace RPGgame
                     break;
             }
         }
-        public void EquipArmor(Hero hero)
+        public void EquipArmor(Hero hero) //equip random armor from list of armors
         {
             int lvl = hero.Level;
             Random random = new Random();
@@ -81,7 +82,7 @@ namespace RPGgame
             Armor a = itemsA[number];
             hero.EquipArmor(a);
         }
-        public void EquipWeapon(Hero hero)
+        public void EquipWeapon(Hero hero)//equip random weapon from list of weapons
         {
             int lvl = hero.Level;
             Random random = new Random();
@@ -89,7 +90,7 @@ namespace RPGgame
             Weapon w = itemsW[number];
             hero.EquipWeapon(w);
         }
-        public string CreateHeroName()
+        public string CreateHeroName()//takse input for hero name
         {
             string name = "";
             Console.WriteLine("Type Character name: ");
@@ -106,9 +107,9 @@ namespace RPGgame
             return name;
         }
 
-        public void LevelUp(Hero h)
+        public void LevelUp(Hero h) //level up character pisible to type new level
         {
-            Console.WriteLine("Want to level up(cannot level down)?");
+            Console.WriteLine("Level up(cannot level down)?");
             Console.WriteLine("type number you whant to level up or <N> if you dont want to level up, nb whole number");
             string level= Console.ReadLine().ToLower();
 
@@ -134,7 +135,7 @@ namespace RPGgame
                 }
             }
         }
-        public void SelectHeroType()
+        public void SelectHeroType() //select type of hero then create som items for that hero type
         {
             Console.WriteLine("Create character: ");
             Console.WriteLine("Type <mage> for mage");

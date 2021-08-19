@@ -28,7 +28,7 @@ namespace RPGgame.HeroClasses
         {
             if (optionalint > 0)
             {
-                this.Level = this.Level + 1;
+                this.Level = this.Level + optionalint;
                 this.BaseAttributes = new PrimaryAttributes(BaseAttributes.Vitality + 3, BaseAttributes.Strength + 1, BaseAttributes.Dexterity + 4, BaseAttributes.Intelligence + 1);
                 this.IncreaseSecAttr(BaseAttributes);
                 CalculateTotalAttributes(BaseAttributes, Equipment);
