@@ -127,11 +127,13 @@ public abstract class Hero
 		sb.AppendLine("Name: " + this.Name);
 		sb.AppendLine("Level: " + this.Level);
 		sb.AppendLine("Strenght " + TotalAttributes.Strength);
+		sb.AppendLine("Vitality: " + TotalAttributes.Vitality);
 		sb.AppendLine("Dexterity: " + TotalAttributes.Dexterity);
 		sb.AppendLine("Intelligence: " + TotalAttributes.Intelligence);
 		sb.AppendLine("Health: " + SecondaryAttributes.Health);
 		sb.AppendLine("Armor Rating: " + SecondaryAttributes.ArmorRating);
 		sb.AppendLine("Elemental Resistance: " + SecondaryAttributes.ArmorRating);
+		sb.AppendLine("Damage Per Second(DPS): " + this.DPS);
 		Console.WriteLine(sb);
 	}
 	public abstract string EquipWeapon(Weapon weapon); //call method EquipWeapon2
